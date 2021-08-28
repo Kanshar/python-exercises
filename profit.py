@@ -33,17 +33,18 @@ def get_max_profit(prices):
     LOG.debug("Called get_max_profit")
     try:
         datalen = len(prices)
-        if datalen == 0:
+        if datalen == 0 or datalen == 1:
             return 0
         max_profit = 0
-        for ibuy in range(datalen-1):
-            for isell in range(ibuy+1, datalen):
-                if prices[ibuy] < prices[isell]:
-                    profit = prices[isell] - prices[ibuy]
-                    if profit > max_profit:
-                        max_profit = profit
-                        LOG.debug("cost=%f, sell=%f", prices[ibuy], prices[isell])
-                        LOG.debug("max_profit (either intermediate or final)=%f", max_profit)
+        low, high = prices[0], 0
+        for i in range(1, datalen):
+            if prices[i] < low:
+                low, high = prices[i], 0
+            elif prices[i] > high:
+                high = prices[i]
+            profit = high - low
+            if profit > max_profit:
+                max_profit = profit
         return max_profit
     except (IndexError, TypeError) as expt:
         LOG.exception(expt)
@@ -52,6 +53,6 @@ def get_max_profit(prices):
 
 if __name__ == "__main__":
     LOG.setLevel(logging.DEBUG)
-    stock_prices_yesterday = [10.2, 7.4, 5.5, 8.0, 11.1, 9.9]*10*24
+    stock_prices_yesterday = [9, 10, 3, 5, 4, 4, 9, 9, 7, 7, 8, 7, 5, 7]
     x = get_max_profit(stock_prices_yesterday)
-    print(f"Max profit = {x}")
+    print(f"max_profit = {x}" )

@@ -4,6 +4,8 @@ from profit import get_max_profit
 def test_simple(capsys):
     testData = [
         { 'input': [], 'output': 0 },
+        { 'input': [5], 'output': 0 },
+        { 'input': [5,6], 'output': 1 },
         { 'input': [10, 7, 5, 8, 11, 9], 'output': 6 },
         { 'input': [5, 10, 7, 8, 11, 9], 'output': 6 },
         { 'input': [11, 5, 10, 7, 8, 9], 'output': 5 },
@@ -17,6 +19,7 @@ def test_simple(capsys):
         { 'input': [12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1], 'output': 0 }
     ]
     for data in testData:
+        print(data)
         res = get_max_profit(data["input"])
         assert res == data["output"]
 
