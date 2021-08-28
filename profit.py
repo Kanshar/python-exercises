@@ -33,7 +33,7 @@ def get_max_profit(prices):
     LOG.debug("Called get_max_profit")
     try:
         datalen = len(prices)
-        if datalen == 0 or datalen == 1:
+        if datalen in (0,1):
             return 0
         max_profit = 0
         low, high = prices[0], 0
